@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="grafikdemo.css"/>
+<script src="grafiken.js"></script>
+<script>
+var fn=[];
+var lastBild = null;
+const PREFIX = "bild_";
+window.addEventListener("load", ()=>{
+var fn = Object.getOwnPropertyNames(window)
+    .filter(item => item.startsWith(PREFIX))
+    .filter(item => typeof window[item] === 'function')
+    .map(name=>window[name]);
+
+let sorted = fn.sort((f1,f2)=>f1.name.localeCompare(f2.name));
+for(var bild of sorted){
+  let fig = document.createElement("FIGURE");
+  fig.className = "sample";
+  let c = document.createElement("CANVAS");
+  c.width = 320;
+  c.height = 180;
+  c.className = "paintgb";
+  fig.append(c);
+  fig.appendChild(document.createElement("figcaption"))
+    .textContent = bild.name;
+  
+  document.querySelector("main").append(fig);
+  var ctx = c.getContext('2d');
+  
+  ctx.clearRect(0, 0, c.width, c.height);
+  ctx.lineWidth /= 2;
+  ctx.beginPath();
+  bild(c,ctx);
+  ctx.stroke();
+}
+});
+</script>
+</head>
+<body>
+<header>
+Grafiken
+</header>
+<main>
+</main>
+</body>
+</html>
