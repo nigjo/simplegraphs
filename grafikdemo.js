@@ -10,8 +10,19 @@ window.addEventListener('load', ()=>{
     .map(name=>window[name]);
 
   updateList();
-
-  nextBild();
+  
+  if(location.search){
+    console.log("q=",location.search);
+    let params = new URLSearchParams(location.search);
+    if(params.has("bild") && window['bild_'+params.get('bild')]
+      && typeof window['bild_'+params.get('bild')] === 'function'){
+      nextBild(window['bild_'+params.get('bild')]);
+    }else{
+      nextBild();
+    }
+  }else{
+    nextBild();
+  }
 });
 
 function updateList(){

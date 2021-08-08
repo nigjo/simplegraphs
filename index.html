@@ -16,8 +16,11 @@ var fn = Object.getOwnPropertyNames(window)
 
 let sorted = fn.sort((f1,f2)=>f1.name.localeCompare(f2.name));
 for(var bild of sorted){
+  let link = document.createElement("A");
+  link.href = "grafikdemo.html?bild="+bild.name.substring("bild_".length);
   let fig = document.createElement("FIGURE");
   fig.className = "sample";
+  link.append(fig);
   let c = document.createElement("CANVAS");
   c.width = 320;
   c.height = 180;
@@ -26,7 +29,7 @@ for(var bild of sorted){
   fig.appendChild(document.createElement("figcaption"))
     .textContent = bild.name;
   
-  document.querySelector("main").append(fig);
+  document.querySelector("main").append(link);
   var ctx = c.getContext('2d');
   
   ctx.clearRect(0, 0, c.width, c.height);
