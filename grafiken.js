@@ -1,3 +1,47 @@
+function bild_kegel_quer(bild, ctx) {
+  const w = bild.width;
+  const h = bild.height;
+  const count = 15;
+  
+  for(i=count;i>1;i--){
+    ctx.moveTo(0,h-h/i);
+    ctx.lineTo(w,h/i);
+  }
+  for(i=3;i<=count;i++){
+    ctx.moveTo(0,h/i);
+    ctx.lineTo(w,h-h/i);
+  }
+}
+
+function bild_raster(bild, ctx) {
+  const w = bild.width;
+  const h = bild.height;
+  const count = 20;
+
+  let x1=i=>delta*(count-i-1);
+  let x2=i=>(i+1)*(w/count);
+  let y1=i=>h;
+  let y2=i=>0;//-h/10;
+
+  let delta=w/(count*3);
+  for(i=0;i<count;i++){
+    ctx.moveTo(x1(i),y2(i));
+    ctx.lineTo(x2(i),y1(i));
+  }
+  for(i=0;i<count;i++){
+    ctx.moveTo(w-x1(i),y2(i));
+    ctx.lineTo(w-x2(i),y1(i));
+  }
+  for(i=0;i<count;i++){
+    ctx.moveTo(w-x1(i),y1(i));
+    ctx.lineTo(w-x2(i),y2(i));
+  }
+  for(i=0;i<count;i++){
+    ctx.moveTo(x1(i),y1(i));
+    ctx.lineTo(x2(i),y2(i));
+  }
+}
+
 function bild_spirale(bild,ctx){
   const w = bild.width;
   const h = bild.height;
